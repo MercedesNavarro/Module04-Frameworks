@@ -1,4 +1,4 @@
-import { Image as ImageApi } from './api/images-list.api-model';
+import { Image as ImageApi } from './api/images-list/images-list.api-model';
 import { Image as ImageVM } from './images-list.vm';
 
 const mapImageFromApiToVm = (image: ImageApi): ImageVM => ({

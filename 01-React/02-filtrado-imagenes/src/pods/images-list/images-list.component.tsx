@@ -1,13 +1,19 @@
 import React from 'react';
 import { Image, createEmptyImage } from './images-list.vm';
-import { getImagesList } from './api';
+import { getImagesList } from './api/images-list';
 import { mapImagesListFromApiToVm } from './images-list.mapper';
 import * as classes from './images-list.component.styles';
 import { SingleImageComponent } from './single-image.component';
 import { AppContext } from '../context/appContextProvider';
 import { findImageIndex } from '../../common/helpers/helpers';
+import { useParams } from 'react-router-dom';
 
-export const ImagesListComponent: React.FC = () => {
+interface Props {
+  categoryName: string;
+}
+
+export const ImagesListComponent: React.FC<Props> = (props) => {
+  const { categoryName } = props;
   const [imagesList, setImagesList] = React.useState<Image[]>([
     createEmptyImage(),
   ]);
@@ -16,7 +22,7 @@ export const ImagesListComponent: React.FC = () => {
   imagesListRef.current = imagesList;
 
   const onLoadImagesList = async () => {
-    const apiImagesList = await getImagesList();
+    const apiImagesList = await getImagesList(categoryName);
     const mapImagesList = mapImagesListFromApiToVm(apiImagesList);
     setImagesList(mapImagesList);
     imagesListRef.current = mapImagesList;

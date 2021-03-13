@@ -6,12 +6,18 @@ import {
 } from '../pods';
 import { AppContextProvider } from '../pods/context/appContextProvider';
 
-export const MainScene: React.FC = () => {
+interface Props {
+  categoryName?: string;
+}
+
+export const MainScene: React.FC<Props> = (props) => {
+  const { categoryName } = props;
+
   return (
     <>
       <NavigationComponent />
       <AppContextProvider>
-        <ImagesListComponent />
+        <ImagesListComponent categoryName={categoryName} />
         <CartComponent />
       </AppContextProvider>
     </>

@@ -23,6 +23,7 @@ export const AppContextProvider: React.FC = (props) => {
 
       imageListCheckedCopy.splice(index, 1);
       setImagesListChecked([...imageListCheckedCopy]);
+      console.log(imagesListChecked);
     }
   };
 
