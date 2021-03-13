@@ -1,15 +1,9 @@
 import React from 'react';
-import { MemberRowComponent } from './memberRow.component';
 import { Member } from './member.vm';
-import { PaginationComponent } from '../pagination';
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-} from '@material-ui/core';
+import { MemberRowComponent } from './memberRow.component';
+import { Table, TableBody, TableHead, TableRow } from '@material-ui/core';
 import { StyledTableCell, StyledTableRow } from './memberList.component.styles';
+import { PaginationComponent } from '../pagination';
 
 interface Props {
   memberList: Member[];
@@ -29,6 +23,10 @@ export const MemberListComponent: React.FC<Props> = (props) => {
   );
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  React.useEffect(() => {
+    paginate(1);
+  }, [memberList]);
 
   return (
     <>

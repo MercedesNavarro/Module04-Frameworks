@@ -22,7 +22,6 @@ export const App: React.FC = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     onLoadMemberList(organization);
-    console.log(`${organization}`);
   };
 
   return (

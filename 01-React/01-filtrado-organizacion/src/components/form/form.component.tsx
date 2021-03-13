@@ -22,6 +22,7 @@ export const FormComponent: React.FC<Props> = (props) => {
           value={organization}
           onChange={(e) => onNewOrganization(e.target.value)}
           style={{ margin: '20px 10px' }}
+          onKeyDown={(e) => (e.key === 'Enter' ? handleSubmit(e) : null)}
         />
         <Button
           variant="contained"

@@ -1,4 +1,4 @@
-import { withStyles, TableCell, TableRow, capitalize } from '@material-ui/core';
+import { withStyles, TableCell, TableRow } from '@material-ui/core';
 
 export const StyledTableCell = withStyles((theme) => ({
   head: {
