@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pagination as Page } from '@material-ui/lab';
-import { Member } from '../memberList/member.vm';
+import { Member } from '../memberList';
 import * as classes from './pagination.component.styles';
 
 interface Props {

@@ -1,5 +1,5 @@
 import { ApiMember } from './member.api.model';
-import { Member } from '../components/memberList/member.vm';
+import { Member } from '../pods/memberList';
 
 const mapMemberFromApiToVm = (member: ApiMember): Member => ({
   login: member.login,
