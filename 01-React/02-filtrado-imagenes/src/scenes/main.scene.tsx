@@ -1,23 +1,14 @@
 import React from 'react';
-import {
-  CartComponent,
-  ImagesListComponent,
-  NavigationComponent,
-} from '../pods';
+import { CartComponent, NavigationComponent } from '../pods';
 import { AppContextProvider } from '../pods/context/appContextProvider';
+import { RouterComponent } from '../core/router/router.component';
 
-interface Props {
-  categoryName?: string;
-}
-
-export const MainScene: React.FC<Props> = (props) => {
-  const { categoryName } = props;
-
+export const MainScene: React.FC = () => {
   return (
     <>
       <NavigationComponent />
       <AppContextProvider>
-        <ImagesListComponent categoryName={categoryName} />
+        <RouterComponent />
         <CartComponent />
       </AppContextProvider>
     </>

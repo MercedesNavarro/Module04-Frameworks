@@ -12,15 +12,7 @@ import {
 export const CartComponent: React.FC = () => {
   const userContext = React.useContext(AppContext);
   const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
 
-  function generate(element) {
-    return [0, 1, 2].map((value) =>
-      React.cloneElement(element, {
-        key: value,
-      })
-    );
-  }
   const updateCheckbox = (image) => {
     userContext.setDeletedImage(image);
   };

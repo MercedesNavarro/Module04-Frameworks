@@ -17,6 +17,10 @@ export const NavigationComponent: React.FC = () => {
     onLoadCategories();
   }, []);
 
+  const handleClick = (e) => {
+    e.target.parentElement.classList.add = classes.active;
+  };
+
   return (
     <HashRouter>
       <div className={classes.menu}>
@@ -29,6 +33,7 @@ export const NavigationComponent: React.FC = () => {
             to={generatePath('/:category', {
               category: category.name,
             })}
+            onClick={handleClick}
           >
             <Button>{category.name}</Button>
           </Link>

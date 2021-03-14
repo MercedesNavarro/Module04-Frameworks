@@ -1,31 +1,46 @@
 import React from 'react';
-import { Image, createEmptyImage } from './images-list.vm';
-import { getImagesList } from './api/images-list';
-import { mapImagesListFromApiToVm } from './images-list.mapper';
-import * as classes from './images-list.component.styles';
-import { SingleImageComponent } from './single-image.component';
 import { AppContext } from '../context/appContextProvider';
+import { Image } from './images-list.vm';
+import { getImagesList } from './api/images-list/images-list.api';
+import { mapImagesListFromApiToVm } from './images-list.mapper';
+import { createEmptyImage } from './images-list.vm';
+import { SingleImageComponent } from './single-image.component';
+import * as classes from './images-list.component.styles';
 import { findImageIndex } from '../../common/helpers/helpers';
-import { useParams } from 'react-router-dom';
 
 interface Props {
-  categoryName: string;
+  categoryName?: string;
 }
 
 export const ImagesListComponent: React.FC<Props> = (props) => {
   const { categoryName } = props;
+  const userContext = React.useContext(AppContext);
   const [imagesList, setImagesList] = React.useState<Image[]>([
     createEmptyImage(),
   ]);
-  const userContext = React.useContext(AppContext);
-  const imagesListRef = React.useRef([]);
-  imagesListRef.current = imagesList;
+
+  const updateImagesList = () => {
+    const imagesListCopy = [...imagesList];
+    userContext.imagesListChecked.map((image) => {
+      const index = findImageIndex(image, imagesListCopy);
+
+      if (index !== -1) imagesListCopy.splice(index, 1, image);
+    });
+
+    setImagesList([...imagesListCopy]);
+  };
 
   const onLoadImagesList = async () => {
     const apiImagesList = await getImagesList(categoryName);
     const mapImagesList = mapImagesListFromApiToVm(apiImagesList);
-    setImagesList(mapImagesList);
-    imagesListRef.current = mapImagesList;
+
+    userContext.imagesListChecked.map((image) => {
+      const index = findImageIndex(image, mapImagesList);
+
+      if (index !== -1) mapImagesList.splice(index, 1, image);
+    });
+
+    setImagesList([...mapImagesList]);
   };
 
   React.useEffect(() => {
@@ -36,26 +51,26 @@ export const ImagesListComponent: React.FC<Props> = (props) => {
     const imagesListCopy = [...imagesList];
     imagesListCopy.splice(index, 1, { ...image, checked: checked });
     setImagesList([...imagesListCopy]);
-    imagesListRef.current = imagesListCopy;
   };
 
   React.useEffect(() => {
-    const deletedImage = userContext.deletedImage;
+    updateImagesList();
+  }, [userContext.imagesListChecked]);
 
+  React.useEffect(() => {
+    updateImagesList();
+  }, [categoryName]);
+
+  React.useEffect(() => {
     const index = findImageIndex(userContext.deletedImage, imagesList);
-    setImage(deletedImage, index, false);
+    if (index !== -1) setImage(userContext.deletedImage, index, false);
   }, [userContext.deletedImage]);
 
   return (
     <>
       <main className={classes.ImagesList}>
-        {imagesListRef.current.map((image, index) => (
-          <SingleImageComponent
-            image={image}
-            key={index}
-            index={index}
-            setImage={setImage}
-          />
+        {imagesList.map((image, index) => (
+          <SingleImageComponent image={image} key={index} />
         ))}
       </main>
     </>

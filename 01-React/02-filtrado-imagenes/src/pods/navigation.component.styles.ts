@@ -12,3 +12,10 @@ export const menu = css`
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   }
 `;
+
+export const active = css`
+  button {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+  }
+`;

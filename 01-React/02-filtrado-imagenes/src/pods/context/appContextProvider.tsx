@@ -1,13 +1,15 @@
 import React from 'react';
+import { Image } from '../images-list/images-list.vm';
 import { findImageIndex } from '../../common/helpers/helpers';
 import { createEmptyImage } from '../images-list/images-list.vm';
 import { AppLayout } from '../../layout/app.layout';
 
 export const AppContext = React.createContext({
   imagesListChecked: [],
-  updateCart: (checked, image) => {},
-  deletedImage: {},
-  setDeletedImage: (image) => {},
+  setImagesListChecked: (imageList: Image[]): void => {},
+  updateCart: (checked: boolean, image: Image): void => {},
+  deletedImage: createEmptyImage(),
+  setDeletedImage: (image: Image): void => {},
 });
 
 export const AppContextProvider: React.FC = (props) => {
@@ -18,18 +20,23 @@ export const AppContextProvider: React.FC = (props) => {
     if (checked === true) {
       setImagesListChecked([...imagesListChecked, image]);
     } else {
-      const imageListCheckedCopy = [...imagesListChecked];
-      const index = findImageIndex(image, imageListCheckedCopy);
+      const imagesListCheckedCopy = [...imagesListChecked];
+      const index = findImageIndex(image, imagesListCheckedCopy);
 
-      imageListCheckedCopy.splice(index, 1);
-      setImagesListChecked([...imageListCheckedCopy]);
-      console.log(imagesListChecked);
+      imagesListCheckedCopy.splice(index, 1);
+      setImagesListChecked([...imagesListCheckedCopy]);
     }
   };
 
   return (
     <AppContext.Provider
-      value={{ imagesListChecked, updateCart, deletedImage, setDeletedImage }}
+      value={{
+        imagesListChecked,
+        updateCart,
+        deletedImage,
+        setDeletedImage,
+        setImagesListChecked,
+      }}
     >
       <AppLayout>{props.children}</AppLayout>
     </AppContext.Provider>

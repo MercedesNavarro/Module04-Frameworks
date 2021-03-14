@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, createEmptyImage } from './images-list.vm';
+import { Image } from './images-list.vm';
 import { AppContext } from '../context/appContextProvider';
 import {
   Card,
@@ -10,12 +10,10 @@ import {
 
 interface Props {
   image: Image;
-  index: number;
-  setImage: (image: Image, index: number, checked: boolean) => void;
 }
 
 export const SingleImageComponent: React.FC<Props> = (props) => {
-  const { image, setImage, index } = props;
+  const { image } = props;
   const userContext = React.useContext(AppContext);
 
   const handleImageChecked = (e) => {
@@ -25,7 +23,6 @@ export const SingleImageComponent: React.FC<Props> = (props) => {
       checked: checked,
     };
 
-    setImage(image, index, checked);
     userContext.updateCart(checked, imageChecked);
   };
 
@@ -36,7 +33,7 @@ export const SingleImageComponent: React.FC<Props> = (props) => {
           component="img"
           image={`/src/assets/images/${image.fileName}`}
           alt={image.title}
-          height="80"
+          height="140"
         />
       </CardActionArea>
       <CardContent>
