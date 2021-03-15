@@ -17,3 +17,5 @@ Por un lado, no he realizado componentes por separado para cada categoría de im
 Por otro lado, lo anterior también ha influido en que no quisiera añadir toda la lista de imágenes al contexto porque no quería ralentizar la aplicación. En el contexto solo tengo la lista de imágenes seleccionadas y la última imagen eliminada de esta lista.
 
 He tenido problemas para separar en ficheros y componentes, es muy probable que estos componentes puedan dividirse más.
+
+También he utilizado Material UI para estilar algunos elementos.
