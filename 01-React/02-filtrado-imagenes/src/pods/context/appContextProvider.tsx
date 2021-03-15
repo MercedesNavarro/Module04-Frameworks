@@ -25,6 +25,8 @@ export const AppContextProvider: React.FC = (props) => {
 
       imagesListCheckedCopy.splice(index, 1);
       setImagesListChecked([...imagesListCheckedCopy]);
+
+      setDeletedImage(image);
     }
   };
 

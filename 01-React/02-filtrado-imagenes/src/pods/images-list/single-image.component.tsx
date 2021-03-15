@@ -6,6 +6,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  Typography,
 } from '@material-ui/core';
 
 interface Props {
@@ -42,7 +43,14 @@ export const SingleImageComponent: React.FC<Props> = (props) => {
           onChange={handleImageChecked}
           checked={image.checked}
         />
-        {image.title}
+        <Typography
+          variant="body1"
+          color="textPrimary"
+          component="span"
+          style={{ padding: '0 10px' }}
+        >
+          {image.title}
+        </Typography>
       </CardContent>
     </Card>
   );

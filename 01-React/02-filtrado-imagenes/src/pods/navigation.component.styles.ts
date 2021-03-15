@@ -1,21 +1,8 @@
-import { css } from '@emotion/css';
+import { makeStyles } from '@material-ui/core/styles';
 
-export const menu = css`
-  list-style-type: none;
-  display: flex;
-  padding: 20px 10px;
-  a {
-    text-decoration: none;
-  }
-  button {
-    padding: 10px;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  }
-`;
-
-export const active = css`
-  button {
-    background-color: rgba(0, 0, 0, 0.4);
-    color: #fff;
-  }
-`;
+export const useStyles = makeStyles({
+  root: {
+    justifyContent: 'flex-start',
+    textTransform: 'uppercase',
+  },
+});

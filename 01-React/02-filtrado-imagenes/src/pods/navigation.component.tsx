@@ -1,12 +1,14 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-import * as classes from './navigation.component.styles';
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { useStyles } from './navigation.component.styles';
 import { getCategoryList } from './images-list/api/categories/category-list.api';
 import { Category } from './images-list/api/categories/category-list.api-model';
 import { generatePath, Link, HashRouter } from 'react-router-dom';
 
 export const NavigationComponent: React.FC = () => {
   const [categoryList, setCategoryList] = React.useState<Category[]>([]);
+  const [value, setValue] = React.useState(0);
+  const classes = useStyles();
 
   const onLoadCategories = async () => {
     const categories = await getCategoryList();
@@ -17,28 +19,35 @@ export const NavigationComponent: React.FC = () => {
     onLoadCategories();
   }, []);
 
-  const handleClick = (e) => {
-    e.target.parentElement.classList.add = classes.active;
-  };
-
   return (
-    <HashRouter>
-      <div className={classes.menu}>
-        <Link to={generatePath('/')}>
-          <Button>ALL</Button>
-        </Link>
-        {categoryList.map((category, index) => (
-          <Link
-            key={index}
-            to={generatePath('/:category', {
-              category: category.name,
-            })}
-            onClick={handleClick}
-          >
-            <Button>{category.name}</Button>
-          </Link>
-        ))}
-      </div>
-    </HashRouter>
+    <>
+      <HashRouter>
+        <BottomNavigation
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          showLabels
+          className={classes.root}
+        >
+          <BottomNavigationAction
+            label="ALL"
+            component={Link}
+            to={generatePath('/')}
+          />
+
+          {categoryList.map((category, index) => (
+            <BottomNavigationAction
+              key={index}
+              label={category.name}
+              component={Link}
+              to={generatePath('/:category', {
+                category: category.name,
+              })}
+            />
+          ))}
+        </BottomNavigation>
+      </HashRouter>
+    </>
   );
 };
